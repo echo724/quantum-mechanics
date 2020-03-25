@@ -1,62 +1,58 @@
 import numpy as np
 
-class QT:
-    _h = 6.626*pow(10,-34)
-    _barh = _h / 2*np.pi
-    _electron = 1.60217662*pow(10,-19)
+h = 6.62607015*pow(10,-34)
+hbar = h / (2*np.pi)
+elect_q = 1.60217662*pow(10,-19)
+elect_m = 9.10938356*pow(10,-31)
+proton_m = 1.6726219*pow(10,-27)
+c = 2.99792458*pow(10,8)
+neutron_m = 1.674929*pow(10,-27)
 
-    def __init__(self):
-        self._m = float(0)
-        self._v = float(0)
-        self._l = float(0)
-        self._p = float(0)
-        self._k = float(0)
-        self._e = float(0)
+def momentum(v,m,l):
+    if v is not 0:
+        p = m*v
+        return p
+    else:
+        p = h/l
+        return p
 
-    def momentum(self):
-        if self._v is not 0:
-            self._p = self._m*self._v
-            return self._p
-        else:
-            self._p = self._h/self._l
+def broglie(x):
+    y = h/x
+    return y
 
-    def broglie(self):
-        self._l = self._h/self._p
-        return self._l
+def single_slit(a,L,y):
+    l = y*a/L
+    return l
 
-    def single_slit(self,a,L,y):
-        self._l = y*a/L
-        return self._l
+def photoelectric(workfunction,x):
+    if x is not 0:
+        k = 1240/x - workfunction
+        return k
+    else:
+        l = 1240/(x + workfunction)
+        return l
 
-    def photoelectric(self,workfunction):
-        if self._l is not 0:
-            self._k = 1240/self._l - workfunction
-            return self._k
-        else:
-            self._l = 1240/(self._k + workfunction)
-            return self._l
+def energy(x):
+    y = 1240/x
+    return y
 
-    def energy(self):
-        self._e = 1240/self._l
-        return self._e
+def compton(theta):
+    delta_l = 1240/511000*(1-np.cos(np.pi*theta/180))
+    return delta_l
 
-    def compton(self,theta):
-        delta_l = 1240/511000*(1-np.cos(np.pi*theta/180))
-        return delta_l
+def matter_wave(k):
+    l = 1240/np.sqrt(2*511000*k)
+    return l
 
-    def matter_wave(self,k):
-        self._l = 1240/np.sqrt(2*511000*k)
-        return self._l
-
-    def bohr(self,n1,n2):
-        N = [13.6,3.4,1.51,0.85,0.54,0.38,0.28]
-        print(N[n1]-N[n2])
-        self._l = 1240/(N[n1]-N[n2])
-        return self._l
+def bohr(n1,n2):
+    N = [13.6,3.4,1.51,0.85,0.54,0.38,0.28]
+    print(N[n1]-N[n2])
+    l = 1240/(N[n1]-N[n2])
+    return l
 
 #Static Methods
-    def ev(joul):
-        return joul/(1.60*pow(10,-19))
+def ev(joul):
+    return joul/(1.602176634*pow(10,-19))
 
-    def joul(ev):
-        return 1.60*pow(10,-19)*ev
+def joul(ev):
+    return 1.602176634*pow(10,-19)*ev
